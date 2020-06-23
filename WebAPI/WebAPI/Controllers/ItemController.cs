@@ -17,10 +17,11 @@ namespace WebAPI.Controllers
         private DBModel db = new DBModel();
 
         // GET: api/Item
-        public IQueryable<Item> GetItems() 
+        public IQueryable<Item> GetItems()
         {
             return db.Items;
         }
+        
 
         protected override void Dispose(bool disposing)
         {
@@ -30,6 +31,6 @@ namespace WebAPI.Controllers
             }
             base.Dispose(disposing);
         }
-
+        
     }
 }

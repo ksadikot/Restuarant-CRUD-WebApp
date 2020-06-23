@@ -20,7 +20,7 @@
       <PropertyRef Name="OrderID" />
     </Key>
     <Property Name="OrderID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OrderNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderNo" Type="varchar" MaxLength="50" />
     <Property Name="CustomerID" Type="int" />
     <Property Name="PMethod" Type="varchar" MaxLength="50" />
     <Property Name="GTotal" Type="decimal" Precision="18" Scale="2" />
@@ -43,18 +43,6 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="CustomerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Order_Order">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
-    <End Role="Order1" Type="Self.Order" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="OrderID" />
-      </Principal>
-      <Dependent Role="Order1">
-        <PropertyRef Name="OrderID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -82,18 +70,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_OrderItems_OrderItems">
-    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="1" />
-    <End Role="OrderItems1" Type="Self.OrderItems" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="OrderItems">
-        <PropertyRef Name="OrderItemID" />
-      </Principal>
-      <Dependent Role="OrderItems1">
-        <PropertyRef Name="OrderItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="RestaurantDBModelStoreContainer">
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
@@ -103,10 +79,6 @@
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
-    <AssociationSet Name="FK_Order_Order" Association="Self.FK_Order_Order">
-      <End Role="Order" EntitySet="Order" />
-      <End Role="Order1" EntitySet="Order" />
-    </AssociationSet>
     <AssociationSet Name="FK_OrderItems_Item" Association="Self.FK_OrderItems_Item">
       <End Role="Item" EntitySet="Item" />
       <End Role="OrderItems" EntitySet="OrderItems" />
@@ -114,10 +86,6 @@
     <AssociationSet Name="FK_OrderItems_Order" Association="Self.FK_OrderItems_Order">
       <End Role="Order" EntitySet="Order" />
       <End Role="OrderItems" EntitySet="OrderItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderItems_OrderItems" Association="Self.FK_OrderItems_OrderItems">
-      <End Role="OrderItems" EntitySet="OrderItems" />
-      <End Role="OrderItems1" EntitySet="OrderItems" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

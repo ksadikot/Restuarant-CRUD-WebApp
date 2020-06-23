@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from "@angular/forms";
-import { MatSliderModule } from '@angular/material/slider';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,7 +13,6 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './orders/order/order.component';
 import { OrderItemsComponent } from './orders/order-items/order-items.component';
 import { OrderService } from './shared/order.service';
-import { ItemService } from './shared/item.service';
 
 @NgModule({
   declarations: [
@@ -27,14 +25,13 @@ import { ItemService } from './shared/item.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatSliderModule,
     BrowserAnimationsModule,
     MatDialogModule,
     HttpClientModule,
-    // ToastrModule.forRoot()
+    ToastrModule.forRoot()
   ],
   entryComponents:[OrderItemsComponent],
-  providers: [OrderService,ItemService],
+  providers: [OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

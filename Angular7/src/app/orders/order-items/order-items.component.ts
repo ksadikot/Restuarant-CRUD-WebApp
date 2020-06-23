@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { OrderItem } from '../../shared/order-item.model';
-import { ItemService } from '../../shared/item.service';
-import { Item } from '../../shared/item.model';
+import { OrderItem } from 'src/app/shared/order-item.model';
+import { ItemService } from 'src/app/shared/item.service';
+import { Item } from 'src/app/shared/item.model';
 import { NgForm } from '@angular/forms';
-import { OrderService } from '../../shared/order.service';
+import { OrderService } from 'src/app/shared/order.service';
 
 @Component({
   selector: 'app-order-items',
@@ -20,10 +20,9 @@ export class OrderItemsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<OrderItemsComponent>,
     private itemService: ItemService,
-    private orderService: OrderService) { }
+    private orderSevice: OrderService) { }
 
   ngOnInit() {
-
     this.itemService.getItemList().then(res => this.itemList = res as Item[]);
     if (this.data.orderItemIndex == null)
       this.formData = {
@@ -36,35 +35,33 @@ export class OrderItemsComponent implements OnInit {
         Total: 0
       }
     else
-      this.formData = Object.assign({}, this.orderService.orderItems[this.data.orderItemIndex]);
+      this.formData = Object.assign({}, this.orderSevice.orderItems[this.data.orderItemIndex]);
   }
 
   updatePrice(ctrl) {
     if (ctrl.selectedIndex == 0) {
       this.formData.Price = 0;
       this.formData.ItemName = '';
-
     }
     else {
-      this.formData.Price = this.itemList[ctrl.selectedIndex - 1].Price
-      this.formData.ItemName = this.itemList[ctrl.selectedIndex - 1].Name
+      this.formData.Price = this.itemList[ctrl.selectedIndex - 1].Price;
+      this.formData.ItemName = this.itemList[ctrl.selectedIndex - 1].Name;
     }
     this.updateTotal();
   }
 
   updateTotal() {
-    this.formData.Total = parseFloat((this.formData.Quantity * this.formData.Price).toFixed(2))
+    this.formData.Total = parseFloat((this.formData.Quantity * this.formData.Price).toFixed(2));
   }
 
   onSubmit(form: NgForm) {
-    if (this.validateForm(form.value) == true) {
+    if (this.validateForm(form.value)) {
       if (this.data.orderItemIndex == null)
-        this.orderService.orderItems.push(form.value);
+        this.orderSevice.orderItems.push(form.value);
       else
-        this.orderService.orderItems[this.data.orderItemIndex] = form.value;
+        this.orderSevice.orderItems[this.data.orderItemIndex] = form.value;
       this.dialogRef.close();
     }
-
   }
 
   validateForm(formData: OrderItem) {
@@ -75,4 +72,5 @@ export class OrderItemsComponent implements OnInit {
       this.isValid = false;
     return this.isValid;
   }
+
 }

@@ -22,6 +22,7 @@ namespace WebAPI.Controllers
             return db.Customers;
         }
 
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -30,6 +31,5 @@ namespace WebAPI.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }
